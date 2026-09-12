@@ -4,16 +4,6 @@ Dynamic knowledge-augmented vision-language reasoning for unmanned surface vehic
 
 A vision-language model is asked to produce a navigation command that is both **operationally admissible** and **traceable to a statute**. It cannot do either from an image alone: a general model enumerates small waterborne targets unreliably, a monocular image carries no metric scale, and inland navigation regulations are almost absent from pre-training corpora. This repository supplies the three things it is missing and keeps them separate.
 
-| Stage | What it contributes | Module |
-|---|---|---|
-| Perception | metric range, bearing, range rate and motion class, by associating 4D-radar returns to a detected box | `vlm_usv/perception/mpaf.py` |
-| Rule space $\mathcal{R}$ | the applicable article and the set of manoeuvres it permits | `vlm_usv/knowledge/inland_rules.py` |
-| Experience space $\mathcal{E}$ | precedents for the current scene configuration, admitted only after a deterministic rule-consistency check | `vlm_usv/knowledge/experience_space.py` |
-| Reasoning | a compact prompt, one delimited output line, a deterministic parser | `vlm_usv/reasoning/` |
-| Execution check | a short-horizon clearance test applied before the command reaches the actuators | `vlm_usv/safety/execution_check.py` |
-
-The rule space is fixed; the experience space grows at run time. What it accumulates is not new *encounter categories* — those are fixed by the statute — but configurations inside a category: bearing, range, range rate and motion class combinations that cannot be enumerated in advance.
-
 ---
 
 ## Contents
@@ -140,31 +130,6 @@ python tools/train_yolov11.py \
 Edit the `path:` field of `tools/dataset.yaml` to point at `datasets/usvtrack_yolo` before training. Weights land under `runs/detect/<name>/weights/best.pt`.
 
 After training, copy the selected checkpoint to `assets/weights/yolo11s_usvtrack.pt`, or update the detector path in `vlm_usv/config.py`.
-
----
-
-## Building the decision benchmark
-
-USVTrack carries no decision annotations, so the Inland Waterway Decision Benchmark (IWDB) is derived from it: one frame per second, each record holding the measured state of every annotated target together with a reviewed decision-level reference (encounter category, give-way or stand-on role, governing article, admissible action set, least-disruptive compliant manoeuvre).
-
-```bash
-python tools/build_iwdb.py --out assets/iwdb
-```
-
-The generated benchmark is written to `assets/iwdb/`. This directory is kept local and is not tracked by the repository.
-
-**The reviewed labels are used for scoring only.** At inference the model receives the sensor-derived symbolic state and the articles and cases returned by retrieval; none of them is selected using the benchmark label. The model must cite an article in its own output, and grounding accuracy is computed afterwards by comparison.
-
-### Initial experience space
-
-```bash
-python -m tools.build_seed_cases \
-    --sequences 10,13,21,26,...    \
-    --per-class 24 \
-    --out assets/cases/initial_experience_space.json
-```
-
-Pass the sequence ids explicitly. **The sequences that build $\mathcal{E}_0$ must be disjoint from those used for evaluation**, otherwise a scored frame can be its own precedent. The generated file is kept local and is not tracked by the repository.
 
 ---
 
