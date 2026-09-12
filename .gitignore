@@ -1,0 +1,33 @@
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+.venv/
+venv/
+.env
+
+# Large model checkpoints are not tracked; see the README for how to fetch them
+models/
+*.safetensors
+*.bin
+
+# Datasets and derived caches
+datasets/
+USVTrack/
+runs/
+outputs/
+*.pkl
+
+# Runtime assets are generated or supplied locally and are not published here
+assets/iwdb/
+assets/weights/
+assets/cases/*.json
+assets/rules/*.json
+
+.ipynb_checkpoints/
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/

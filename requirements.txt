@@ -1,0 +1,22 @@
+# Core. Pinned where the version matters: transformers below 4.45 has no
+# Qwen2-VL, and torch is pinned to the CUDA 12.1 wheel the results were
+# produced with. Install torch first, from the PyTorch index.
+#   pip install torch==2.4.1 torchvision==0.19.1 --index-url https://download.pytorch.org/whl/cu121
+torch==2.4.1
+torchvision==0.19.1
+transformers>=4.45,<4.50
+accelerate>=0.30
+numpy>=1.24,<2.3
+pillow>=10.0
+scipy>=1.10
+
+# Sentence encoder for the experience space. sentence-transformers is
+# optional: without it the encoder falls back to plain transformers with mean
+# pooling, which produces the same vectors.
+sentence-transformers>=3.0 ; python_version >= "3.9"
+
+# Detector training and conversion (tools/)
+ultralytics>=8.3
+
+# Figures
+matplotlib>=3.7

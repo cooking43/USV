@@ -1,0 +1,47 @@
+cff-version: 1.2.0
+title: VLM-USV
+message: If you use this software, please cite both this repository and the USVTrack dataset.
+type: software
+authors:
+  - family-names: Xie
+    given-names: Daoshun
+  - family-names: Yang
+    given-names: Shenhua
+  - family-names: Chen
+    given-names: Guoquan
+  - family-names: Zhu
+    given-names: Hong
+  - family-names: Wang
+    given-names: Weijun
+  - family-names: Huang
+    given-names: Zeyang
+license: MIT
+repository-code: "https://github.com/cooking43/USV"
+abstract: >-
+  Dynamic knowledge-augmented vision-language reasoning for unmanned surface
+  vehicle navigation in inland waterways. A fixed rule space encoding the
+  Inland Rules and an expandable experience space admitted through a
+  deterministic rule-consistency gate are retrieved into a compact prompt for a
+  vision-language backbone, and the resulting command passes a short-horizon
+  clearance check before execution.
+references:
+  - type: conference-paper
+    title: "USVTrack: USV-Based 4D Radar-Camera Tracking Dataset for Autonomous Driving in Inland Waterways"
+    authors:
+      - family-names: Yao
+        given-names: Shanliang
+      - family-names: Guan
+        given-names: Runwei
+      - family-names: Ni
+        given-names: Yi
+      - family-names: Xu
+        given-names: Sen
+      - family-names: Yue
+        given-names: Yong
+      - family-names: Zhu
+        given-names: Xiaohui
+      - family-names: Liu
+        given-names: "Ryan Wen"
+    year: 2025
+    collection-title: "IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS)"
+    url: "https://arxiv.org/abs/2506.18737"

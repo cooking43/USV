@@ -1,0 +1,23 @@
+# USVTrack dataset configuration for YOLOv11
+# Dataset: USVTrack - Maritime Object Detection & Tracking
+# Converted to YOLO format
+
+# Dataset root path
+path: /home/xds/dataset/USVTrack-YOLO
+
+# Train/Val image directories (relative to 'path')
+train: images/train
+val: images/train  # Using train split with internal validation split
+
+# Number of classes
+nc: 7
+
+# Class names
+names:
+  0: pier
+  1: buoy
+  2: sailor
+  3: ship
+  4: boat
+  5: vessel
+  6: kayak
